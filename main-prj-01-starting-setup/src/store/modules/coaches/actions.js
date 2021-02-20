@@ -1,6 +1,7 @@
 export default {
     async registerCoach(context, data) {
         const userId = context.rootGetters.userId;
+        const token = context.rootGetters.token;
 
         const coach = {
             firstName: data.firstName,
@@ -11,7 +12,7 @@ export default {
         }
 
         const response = await fetch(
-            `https://learning-vuejs-arno85-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+            `https://learning-vuejs-arno85-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=${token}`,
             {
                 method: 'PUT',
                 body: JSON.stringify(coach)
@@ -19,7 +20,7 @@ export default {
         );
 
         if (!response.ok) {
-            throw new Error('Failed to register!');
+            throw new Error('Failed to register as a coach!');
         }
 
         context.commit('registerCoach', {

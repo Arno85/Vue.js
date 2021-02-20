@@ -26,9 +26,10 @@ export default {
 
     async fetchRequests(context) {
         const coachId = context.rootGetters.userId;
+        const token = context.rootGetters.token;
 
         const response = await fetch(
-            `https://learning-vuejs-arno85-default-rtdb.firebaseio.com/requests/${coachId}.json`
+            `https://learning-vuejs-arno85-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=${token}`
         )
 
         if (!response.ok) {
