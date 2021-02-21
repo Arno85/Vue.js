@@ -8,6 +8,10 @@ run `npm i -g @vue/cli`;
 
 run `vue create appName`
 
+## Building
+
+run `npm run build`
+
 ## Useful additional libraries
 
 - Routing -> `npm i --save vue-router` (vue-router 4+ with vue3)

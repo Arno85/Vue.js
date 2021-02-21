@@ -1,11 +1,12 @@
+import { defineAsyncComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import CoachesList from '../pages/coaches/CoachesList.vue';
-import CoachDetail from '../pages/coaches/CoachDetail.vue';
-import CoachRegistration from '../pages/coaches/CoachRegistration.vue';
-import ContactCoach from '../pages/requests/ContactCoach.vue';
-import RequestReceived from '../pages/requests/RequestReceived.vue';
-import UserAuth from '../pages/auth/UserAuth.vue';
-import NotFound from '../pages/NotFound.vue';
+// import CoachDetail from '../pages/coaches/CoachDetail.vue';
+// import CoachRegistration from '../pages/coaches/CoachRegistration.vue';
+// import ContactCoach from '../pages/requests/ContactCoach.vue';
+// import RequestReceived from '../pages/requests/RequestReceived.vue';
+// import UserAuth from '../pages/auth/UserAuth.vue';
+// import NotFound from '../pages/NotFound.vue';
 import routes from './routes';
 import store from '../store/index';
 
@@ -22,33 +23,45 @@ const router = createRouter({
         },
         {
             path: `${routes.coaches}/:id`,
-            component: CoachDetail,
+            component: defineAsyncComponent(
+                () => import('../pages/coaches/CoachDetail.vue')
+            ),
             props: true,
             children: [
                 {
                     path: routes.contact,
-                    component: ContactCoach
+                    component: defineAsyncComponent(
+                        () => import('../pages/requests/ContactCoach.vue')
+                    )
                 },
             ]
         },
         {
             path: routes.register,
-            component: CoachRegistration,
+            component: defineAsyncComponent(
+                () => import('../pages/coaches/CoachRegistration.vue')
+            ),
             meta: { requiresAuth: true }
         },
         {
             path: routes.requests,
-            component: RequestReceived,
+            component: defineAsyncComponent(
+                () => import('../pages/requests/RequestReceived.vue')
+            ),
             meta: { requiresAuth: true }
         },
         {
             path: routes.auth,
-            component: UserAuth,
+            component: defineAsyncComponent(
+                () => import('../pages/auth/UserAuth.vue')
+            ),
             meta: { requiresUnauth: true }
         },
         {
             path: '/:notFound(.*)',
-            component: NotFound
+            component: defineAsyncComponent(
+                () => import('../pages/NotFound.vue')
+            )
         }
     ]
 });
